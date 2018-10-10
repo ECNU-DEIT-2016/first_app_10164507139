@@ -1,20 +1,20 @@
 <!-- Components info: https://webdev.dartlang.org/components -->
 <div>
-  <material-input label="What do you need to do?"
+  <material-input label="试试看，有什么新的变化！"
                   autoFocus floatingLabel style="width:80%"
-                  [(ngModel)]="newTodo"
+                  [(ngModel)]="newHavedone"
                   (keyup.enter)="add()">
   </material-input>
 
   <material-fab mini raised
                 (trigger)="add()"
-                [disabled]="newTodo.isEmpty">
+                [disabled]="newHavedone.isEmpty">
     <material-icon icon="add"></material-icon>
   </material-fab>
 </div>
 
 <p *ngIf="items.isEmpty">
-  Nothing to do! Add items above.
+  Nothing have done! Add items above.
 </p>
 
 <div *ngIf="items.isNotEmpty">

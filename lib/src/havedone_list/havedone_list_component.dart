@@ -1,14 +1,19 @@
 import 'dart:async';
 
+
+
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
-import 'todo_list_service.dart';
+
+
+import 'havedone_list_service.dart';
+
 
 @Component(
-  selector: 'todo-list',
-  styleUrls: ['todo_list_component.css'],
-  templateUrl: 'todo_list_component.html',
+  selector: 'havedone-list',
+  styleUrls: ['havedone_list_component.css'],
+  templateUrl: 'havedone_list_component.html',
   directives: [
     MaterialCheckboxComponent,
     MaterialFabComponent,
@@ -18,28 +23,32 @@ import 'todo_list_service.dart';
     NgFor,
     NgIf,
   ],
-  providers: [const ClassProvider(TodoListService)],
+  providers: [const ClassProvider(HavedoneListService)],
 )
-class TodoListComponent implements OnInit {
-  final TodoListService todoListService;
+class HavedoneListComponent implements OnInit {
+  final HavedoneListService havedoneListService;
 
   List<String> items = [];
-  String newTodo = '';
+  String newHavedone = '';
 
-  TodoListComponent(this.todoListService);
+  HavedoneListComponent(this.havedoneListService);
+
 
   @override
   Future<Null> ngOnInit() async {
-    items = await todoListService.getTodoList();
+    items = await havedoneListService.getHavedoneList();
   }
 
   void add() {
-    items.add(newTodo);
-    newTodo = '';
+    items.add(newHavedone);
+    newHavedone = '';
   }
 
   String remove(int index) => items.removeAt(index);
   void clear(){
     items.clear();
   }
+
 }
+
+ 
