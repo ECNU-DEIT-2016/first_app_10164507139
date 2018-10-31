@@ -1,25 +1,21 @@
-<h1>My First AngularDart App</h1>
+<h1 style="text-align:center">随机点名系统</h1>
 
-<todo-list></todo-list>
-<havedone-list></havedone-list>
-
+<random></random>
 
 
-<h2>Things to do!</h2>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes"
-      [class.selected]="hero === selected"
-      (click)="onSelect(hero)">
-    <span class="badge">{{hero.id}}</span> {{hero.things}}
-  </li>
-</ul>
-<div *ngIf="selected != null">
-  <h2>{{selected.things}}</h2>
-  <div><label>id: </label>{{selected.id}}</div>
-  <div>
-    <label>things: </label>
-    <input [(ngModel)]="selected.things" placeholder="things">
+  <h2 >学生名单:</h2>
+ 
+  <ul class="students" >
+    <li *ngFor="let student of students"
+    [class.selected]="student === selected"
+    (click)="onSelect(student)">
+      <span class="badge">{{student.id}}</span> {{student.name}}
+    </li>
+    
+  </ul>
+  <div *ngIf="selected != null">
+    <h2>{{selected.name}}</h2>
+    <div><label>学号: </label>{{selected.id}}</div>
+    <div><label>性别: </label>{{selected.sex}}</div>
   </div>
-</div>
 
-//bibibi
