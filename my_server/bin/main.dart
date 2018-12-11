@@ -1,9 +1,11 @@
+
+
 import 'package:my_server/my_server.dart';
 
 Future main() async {
   final app = Application<MyServerChannel>()
       ..options.configurationFilePath = "config.yaml"
-      ..options.port = 8009;
+      ..options.port = 8005;
 
   final count = Platform.numberOfProcessors ~/ 2;
   await app.start(numberOfInstances: count > 0 ? count : 1);

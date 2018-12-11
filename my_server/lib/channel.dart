@@ -30,81 +30,66 @@ class MyServerChannel extends ApplicationChannel {
     // See: https://aqueduct.io/docs/http/request_controller/
     router
       .route("/users/[:id]").link(()=>MyController());
-    router
-      .route("/allnames").link(()=>MyRandomController());
+      
 
     return router;
   }
 }
 class MyController extends ResourceController {
-  List namelist =[
-    '唐莉雯',
-    '吴松二',
-    '龙晶毅',
-    '张静雅',
-    '戚晓颖',
-    '蔡心蕊',
-    '周嘉翔',
-    '李典康',
-    '陈瑶',
-    '郑可欣',
-    '朱子恒',
-    '赵世宇',
-    
-];
-   int randomname(){
-    Random random = new Random();
-    int number = random.nextInt(13);
-    return number;
-    ///var id=number+1;
-    ///String snumber=id.toString();
-    ///querySelector('#number').text='学号：'+snumber;
-    ///querySelector('#name').text='名字：'+namelist[number];
-    
-    
-   
+  // final List<String> things = ['thing1', 'thing2', 'things3', 'things4', 'things5'];
+  List<String> names = [];
+
+ MyController(){
+    //connect(names);
   }
 
   @Operation.get()
   Future<Response> getThings() async {
-    
-    return Response.ok(namelist[randomname()]);
+    // getRandom(10);
+    connect(names);// getRandom(10);
+    return Response.ok(names);
   }
 
   @Operation.get('id')
-  Future<Response> getThing(@Bind.path('id') int id) async {
-    if (id < 0 || id >= namelist.length) {
+  Future<Response> getStudent(@Bind.path('id') int id) async {
+  
+   if (id < 0 || id >= names.length) {
       return Response.notFound();
     }
-    return Response.ok(namelist[id]);
+    return Response.ok(names[id]);
+  }
+    //List<int> nums = getRandom(num, names.length);
+   // List<String> res = [];
+    //for(int i=0; i<nums.length; i++){
+     // res.add(names[num]);
+    //}
+    //return Response.ok(res);
+   // }
+
+  int getRandom(){
+    //List<int> nums=[];
+     Random random = new Random();
+     
+     int rand = random.nextInt(13);
+     
+     return rand;
   }
 }
 
-class MyRandomController extends ResourceController {
 
-List namelist =[
-    '唐莉雯',
-    '吴松二',
-    '龙晶毅',
-    '张静雅',
-    '戚晓颖',
-    '蔡心蕊',
-    '周嘉翔',
-    '李典康',
-    '陈瑶',
-    '郑可欣',
-    '朱子恒',
-    '赵世宇',
-    
-];
-   
-  
-  
- @Operation.get()
-  Future<Response> getThings() async {
-   
-      return Response.ok(namelist);
-   
-    
-  }
+Future connect(List<String> names) async{
+  var s = ConnectionSettings(
+    user: "root",
+    password: "erAS1015",
+    host: "localhost",
+    port: 3306,
+    db: "example",
+  );
+   print("Opening connection ...");
+   var conn = await MySqlConnection.connect(s);
+   print("Opened connection!");
+   Results result =
+      await conn.execute('SELECT id,name,sex FROM student');
+   print(result);
+  result.forEach( (f) => names.add(f.toString()) );
 }
