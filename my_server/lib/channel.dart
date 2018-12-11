@@ -30,44 +30,52 @@ class MyServerChannel extends ApplicationChannel {
     // See: https://aqueduct.io/docs/http/request_controller/
     router
       .route("/users/[:id]").link(()=>MyController());
-      
-
+    router
+      .route("/random").link(()=>RandController())
+      ;
     return router;
   }
 }
 class MyController extends ResourceController {
-  // final List<String> things = ['thing1', 'thing2', 'things3', 'things4', 'things5'];
+  
   List<String> names = [];
 
- MyController(){
-    //connect(names);
-  }
+ 
 
   @Operation.get()
   Future<Response> getThings() async {
-    // getRandom(10);
-    connect(names);// getRandom(10);
+    
+    await connect(names);
     return Response.ok(names);
   }
 
   @Operation.get('id')
   Future<Response> getStudent(@Bind.path('id') int id) async {
-  
+   await connect(names);
    if (id < 0 || id >= names.length) {
       return Response.notFound();
     }
     return Response.ok(names[id]);
   }
-    //List<int> nums = getRandom(num, names.length);
-   // List<String> res = [];
-    //for(int i=0; i<nums.length; i++){
-     // res.add(names[num]);
-    //}
-    //return Response.ok(res);
-   // }
+
+}
+
+class RandController extends ResourceController {
+ 
+  List<String> names = [];
+
+  @Operation.get()
+  Future<Response> getThings() async {
+    
+    await connect(names);
+    int ran=getRandom();
+    return Response.ok(names[ran]);
+  }
+
+
 
   int getRandom(){
-    //List<int> nums=[];
+    
      Random random = new Random();
      
      int rand = random.nextInt(13);
@@ -75,7 +83,6 @@ class MyController extends ResourceController {
      return rand;
   }
 }
-
 
 Future connect(List<String> names) async{
   var s = ConnectionSettings(
@@ -89,7 +96,8 @@ Future connect(List<String> names) async{
    var conn = await MySqlConnection.connect(s);
    print("Opened connection!");
    Results result =
-      await conn.execute('SELECT id,name,sex FROM student');
-   print(result);
+      await conn.execute('SELECT id,stu_id,name,sex FROM student');
+   //print(result);
   result.forEach( (f) => names.add(f.toString()) );
+  
 }
