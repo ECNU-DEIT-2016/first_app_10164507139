@@ -80,7 +80,7 @@ class MyController extends ResourceController {
 Future connect(List<String> names) async{
   var s = ConnectionSettings(
     user: "root",
-    password: "2a3d4g*o#",
+    password: "your password",
     host: "localhost",
     port: 3306,
     db: "example",
