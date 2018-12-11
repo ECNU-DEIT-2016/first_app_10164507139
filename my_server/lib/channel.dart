@@ -46,7 +46,7 @@ class MyController extends ResourceController {
   @Operation.get()
   Future<Response> getThings() async {
     // getRandom(10);
-    connect(names);// getRandom(10);
+    await connect(names);// getRandom(10);
     return Response.ok(names);
   }
 
@@ -80,7 +80,7 @@ class MyController extends ResourceController {
 Future connect(List<String> names) async{
   var s = ConnectionSettings(
     user: "root",
-    password: "erAS1015",
+    password: "2a3d4g*o#",
     host: "localhost",
     port: 3306,
     db: "example",
@@ -90,6 +90,6 @@ Future connect(List<String> names) async{
    print("Opened connection!");
    Results result =
       await conn.execute('SELECT id,name,sex FROM student');
-   print(result);
-  result.forEach( (f) => names.add(f.toString()) );
+    print(result);
+   result.forEach( (f) => names.add(f.toString()) );
 }
