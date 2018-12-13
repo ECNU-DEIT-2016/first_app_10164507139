@@ -87,10 +87,10 @@ class RandController extends ResourceController {
 Future connect(List<String> names) async{
   var s = ConnectionSettings(
     user: "root",
-    password: "erAS1015",
+    password: "deit2016@ecnu",
     host: "localhost",
     port: 3306,
-    db: "example",
+    db: "deit2016db_10164507139",
   );
    print("Opening connection ...");
    var conn = await MySqlConnection.connect(s);
