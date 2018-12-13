@@ -86,9 +86,9 @@ class RandController extends ResourceController {
 
 Future connect(List<String> names) async{
   var s = ConnectionSettings(
-    user: "root",
+    user: "deit2016",//改为公共账户
     password: "deit2016@ecnu",
-    host: "localhost",
+    host: "www.muedu.org",
     port: 3306,
     db: "deit2016db_10164507139",
   );
